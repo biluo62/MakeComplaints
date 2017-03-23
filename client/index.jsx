@@ -1,6 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 
+import Container from './containers/Container/Container.jsx';
+import App from './containers/App/App.jsx';
 import ObjectUtils from './utils/ObjectUtils';
 import './scss/index.scss';
 import './scss/abc.css';
@@ -17,6 +19,6 @@ var CommentBox = React.createClass({
 });
 
 render(
-  <CommentBox />,
+  <Container><App/></Container>,
   document.getElementById('root')
 );
