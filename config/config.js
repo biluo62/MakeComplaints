@@ -34,6 +34,7 @@ const config = {
     'redux',
     'axios'
   ],
+  compiler_vendor_key: 'vendor',
 
   // Proxy Configuration -> path: host
   proxyTable: {},

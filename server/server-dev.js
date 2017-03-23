@@ -13,7 +13,6 @@ AV.init({
 AV.Cloud.useMasterKey();
 
 const app = require('./app');
-const clientRoute = require('./middlewares/clientRoute');
 const config = require('../build/webpack/webpack.dev.conf');
 const webpack = require('webpack');
 const compiler = webpack(config);
@@ -23,8 +22,8 @@ app.use(require('connect-history-api-fallback')());
 
 // serve webpack bundle output
 app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
-  publicPath: devConfig.output.publicPath,
+  noInfo: false,
+  publicPath: config.output.publicPath,
   stats: {
     colors: true,
     chunks: false
@@ -34,6 +33,10 @@ app.use(require('webpack-dev-middleware')(compiler, {
 // enable hot-reload and state-preserving
 // compilation error display
 app.use(require('webpack-hot-middleware')(compiler));
+
+// error handlers
+const errorHandler = require('./error-handler');
+app.use(errorHandler(app));
 
 // 端口一定要从环境变量 `LEANCLOUD_APP_PORT` 中获取。
 // LeanEngine 运行时会分配端口并赋值到该变量。

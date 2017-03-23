@@ -9,7 +9,7 @@ const APP_ENTRY = pathsUtils.client('index.jsx');
 
 const entry = {
   app: APP_ENTRY,
-  vendor: config.compiler_vendors
+  [config.compiler_vendor_key]: config.compiler_vendors
 };
 
 const baseConfig = {
@@ -26,7 +26,10 @@ const baseConfig = {
     ]
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: '[name].[hash:8].js' }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: config.compiler_vendor_key,
+      filename: '[name].[hash:8].js'
+    }),
     new ExtractTextPlugin({
       filename: '[id].[name].[contenthash:6].css',
       allChunks: true
