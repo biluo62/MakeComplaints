@@ -28,7 +28,6 @@ module.exports = {
     'react/jsx-no-bind': 0,
 
     'import/extensions': 0,
-    'import/no-extraneous-dependencies': 0,
     'react/jsx-curly-spacing': 0
   },
   'env': {

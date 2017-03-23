@@ -6,13 +6,15 @@
   "main": "server/server.dev.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development && node server/server-dev.js",
-    "dev": "cross-env NODE_ENV=development && nodemon server/server-dev.js",
+    "dev": "cross-env NODE_ENV=development && nodemon server/server-prod.js",
     "build": "cross-env NODE_ENV=production && node ./server/server-prod.js",
     "dist": "cross-env NODE_ENV=production && node ./server/server-prod.js"
   },
   "dependencies": {
+    "babel-polyfill": "6.23.0",
     "body-parser": "1.12.3",
     "connect-timeout": "1.7.0",
+    "connect-history-api-fallback": "1.3.0",
     "cookie-parser": "1.3.5",
     "cross-env": "3.2.4",
     "debug": "2.6.3",
@@ -22,7 +24,10 @@
     "node-sass": "4.5.0",
     "react": "15.4.2",
     "react-dom": "15.4.2",
-    "react-router": "4.0.0"
+    "react-router": "4.0.0",
+    "webpack": "2.2.1",
+    "webpack-dev-middleware": "1.10.1",
+    "webpack-hot-middleware": "2.17.1"
   },
   "devDependencies": {
     "autoprefixer": "6.7.7",
@@ -31,12 +36,10 @@
     "babel-eslint": "7.2.0",
     "babel-loader": "6.4.1",
     "babel-plugin-transform-runtime": "6.23.0",
-    "babel-polyfill": "6.23.0",
     "babel-preset-es2015": "6.24.0",
     "babel-preset-react": "6.23.0",
     "babel-preset-stage-0": "6.22.0",
     "clean-webpack-plugin": "0.1.16",
-    "connect-history-api-fallback": "1.3.0",
     "css-loader": "0.27.3",
     "eslint": "3.18.0",
     "eslint-config-airbnb": "14.1.0",
@@ -55,10 +58,7 @@
     "progress-bar-webpack-plugin": "1.9.3",
     "react-hot-loader": "1.3.1",
     "sass-loader": "6.0.3",
-    "style-loader": "0.15.0",
-    "webpack": "2.2.1",
-    "webpack-dev-middleware": "1.10.1",
-    "webpack-hot-middleware": "2.17.1"
+    "style-loader": "0.15.0"
   },
   "engines": {
     "node": "6.x"

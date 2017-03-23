@@ -45,7 +45,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 // compilation error display
 app.use(require('webpack-hot-middleware')(compiler));
 
-// error handlers
+// error  handlers
 const errorHandler = require('./error-handler');
 
 app.use(errorHandler(app));
