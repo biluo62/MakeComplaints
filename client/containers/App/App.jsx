@@ -7,21 +7,23 @@ class App extends Component {
     children: PropTypes.node
   }
 
+  static defaultProps = {
+    children: null
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
       content: 'life cycle component props content 0'
-    }
+    };
   }
 
   onChangeContent = () => {
     const { content: preContent } = this.state;
 
-    const nextContent = preContent.replace(/(\d+)/, function (search, group) {
-      return parseInt(group, 10) + 1;
-    });
-    console.log(nextContent, '-----------------')
+    const nextContent = preContent.replace(/(\d+)/, (search, group) => parseInt(group, 10) + 1);
+    console.log(nextContent, '-----------------');
 
     this.setState({ content: nextContent });
   }
@@ -32,8 +34,9 @@ class App extends Component {
 
     return (
       <div className="main">
+        <div>123</div>
         { children && children }
-        <LifeCycle content={ content } onChangeContent={this.onChangeContent}></LifeCycle>
+        <LifeCycle content={ content } onChangeContent={ this.onChangeContent } />
       </div>
     );
   }

@@ -1,5 +1,7 @@
+$content-color: #f00;
+
 .content {
   font-size: 15px;
   transform: translate(20px, 10px);
-  color: red;
+  color: $content-color;
 }
