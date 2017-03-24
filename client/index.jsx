@@ -1,24 +1,17 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import store from './store/configureStore';
 
 import Container from './containers/Container/Container.jsx';
 import App from './containers/App/App.jsx';
-import ObjectUtils from './utils/ObjectUtils';
+// import ObjectUtils from './utils/ObjectUtils';
 import './scss/index.scss';
 import './scss/abc.css';
 
-// tutorial1.js
-var CommentBox = React.createClass({
-  render: function() {
-    return (
-      <div className="content">
-        Hello, world! I am a CommentBox.
-      </div>
-    );
-  }
-});
-
 render(
-  <Container><App/></Container>,
+  <Provider store={ store }>
+    <Container><App /></Container>
+  </Provider>,
   document.getElementById('root')
 );

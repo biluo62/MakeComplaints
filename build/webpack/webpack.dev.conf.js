@@ -10,12 +10,13 @@ const pathsUtils = config.utils_paths;
 webpackConfig.devtool = 'eval';
 
 // add hot-reload related code to entry chunks
-var polyfill = 'eventsource-polyfill';
-var devClient = './build/dev/dev-client';
-for (const key in webpackConfig.entry) {
+const polyfill = 'eventsource-polyfill';  // 兼容ie
+const devClient = './build/dev/dev-client';
+const entry = webpackConfig.entry;
+for (const key in entry) {
   const isVendorEntry = key === config.compiler_vendor_key;
-  var extras = isVendorEntry ? [polyfill, devClient] : [devClient];
-  webpackConfig.entry[key] = extras.concat(webpackConfig.entry[key]);
+  const extras = isVendorEntry ? [polyfill, devClient] : [devClient];
+  entry[key] = extras.concat(entry[key]);
 }
 
 // 默认的webpack会将require("style.css")文件嵌入js文件中，使用该插件会将css从js中提取出来

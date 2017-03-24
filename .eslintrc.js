@@ -24,11 +24,14 @@ module.exports = {
     'arrow-body-style': 0,
     'no-loop-func': 0,
     'guard-for-in': 1,
+    'no-restricted-syntax': 0, // 允许使用for in
     'react/no-did-mount-set-state': 0,
     'react/jsx-no-bind': 0,
 
     'import/extensions': 0,
-    'react/jsx-curly-spacing': 0
+    'import/prefer-default-export': 0, // 默认使用export default
+    'react/jsx-curly-spacing': 0,
+    'react/require-default-props': 0 // 与react/prop-types冲突，保留react/prop-types验证
   },
   'env': {
     'es6': true,
