@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import LifeCycle from '../../test/components/LifeCycle/LifeCycle.jsx';
+// import LifeCycle from '../../test/components/LifeCycle/LifeCycle.jsx';
 
 class App extends Component {
   static propTypes = {
@@ -11,32 +11,31 @@ class App extends Component {
     children: null
   }
 
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    this.state = {
-      content: 'life cycle component props content 0'
-    };
-  }
+  //   this.state = {
+  //     content: 'life cycle component props content 0'
+  //   };
+  // }
 
-  onChangeContent = () => {
-    const { content: preContent } = this.state;
+  // onChangeContent = () => {
+  //   const { content: preContent } = this.state;
 
-    const nextContent = preContent.replace(/(\d+)/, (search, group) => parseInt(group, 10) + 1);
-    console.log(nextContent, '-----------------');
+  //   const nextContent = preContent.replace(/(\d+)/, (search, group) => parseInt(group, 10) + 1);
+  //   console.log(nextContent, '-----------------');
 
-    this.setState({ content: nextContent });
-  }
+  //   this.setState({ content: nextContent });
+  // }
 
   render() {
     const { children } = this.props;
-    const { content } = this.state;
+    // const { content } = this.state;
 
     return (
       <div className="main">
-        <div>123</div>
+        {/* <LifeCycle content={ content } onChangeContent={ this.onChangeContent } /> */}
         { children && children }
-        <LifeCycle content={ content } onChangeContent={ this.onChangeContent } />
       </div>
     );
   }
