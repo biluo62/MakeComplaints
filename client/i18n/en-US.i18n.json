@@ -1,0 +1,13 @@
+{
+  "app": {
+    "homepage": {
+      "content": "Homepage Content"
+    },
+    "login": {
+      "content": "Login Page Content"
+    },
+    "sugnup": {
+      "content": "SignUp Page Content"
+    }
+  }
+}

@@ -1,8 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 
+import Language from '../../libs/Language';
+
 class Container extends Component {
   static propTypes = {
     children: PropTypes.node
+  }
+
+  componentWillMount() {
+    Language.loadLanguage();
   }
 
   render() {

@@ -1,0 +1,13 @@
+{
+  "app": {
+    "homepage": {
+      "content": "首页内容"
+    },
+    "login": {
+      "content": "登陆页面内容"
+    },
+    "sugnup": {
+      "content": "注册页面内容"
+    }
+  }
+}
