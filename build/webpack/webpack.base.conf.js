@@ -1,7 +1,6 @@
 const webpack = require('webpack');
-const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const autoprefixer = require('autoprefixer');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const config = require('../../config/config');
 
 const pathsUtils = config.utils_paths;
@@ -13,7 +12,7 @@ const entry = {
 };
 
 const baseConfig = {
-  entry: entry,
+  entry,
   output: {
     path: pathsUtils.dist('client'),
     publicPath: config.compiler_public_path,
@@ -22,7 +21,13 @@ const baseConfig = {
   },
   module: {
     rules: [
-      { test: /\.js(x?)$/, use: ['react-hot-loader', 'babel-loader'], exclude: /node_modules/ }
+      { test: /\.jsx?$/, use: ['react-hot-loader', 'babel-loader'], exclude: /node_modules/ },
+      { test: /\.(png|jpe?g|gif|svg|webp)$/,
+        use: [
+          'url-loader?limit=8192&name=img/[name][hash:8].[ext]'
+        ],
+        exclude: /node_modules/
+      }
     ]
   },
   plugins: [
@@ -33,7 +38,11 @@ const baseConfig = {
     new ExtractTextPlugin({
       filename: '[id].[name].[contenthash:6].css',
       allChunks: true
-    })
+    }),
+    new CopyWebpackPlugin([
+      { from: pathsUtils.client('deps'), to: 'deps' },
+      { from: pathsUtils.client('favicons'), to: 'favicons' }
+    ])
   ]
 };
 

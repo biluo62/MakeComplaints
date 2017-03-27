@@ -33,7 +33,7 @@ class App extends Component {
     // const { content } = this.state;
 
     return (
-      <div className="main">
+      <div className="app-main">
         {/* <LifeCycle content={ content } onChangeContent={ this.onChangeContent } /> */}
         { children && children }
       </div>

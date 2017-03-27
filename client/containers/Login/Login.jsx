@@ -6,6 +6,8 @@ import { getLang } from 'redux-pagan';
 import * as loginActions from '../../actions/login';
 import ObjectUtils from '../../utils/ObjectUtils';
 
+import './Login.scss';
+
 class Login extends Component {
   static propTypes = {
     content: PropTypes.string.isRequired,
@@ -16,7 +18,12 @@ class Login extends Component {
   render() {
     const { i18n } = this.props;
     return (
-      <div className="login-main">{ i18n('login', 'content').s }</div>
+      <div className="login-main">
+        { i18n('login', 'content').s }
+        <div className="login-mask">
+          <div className="background-mask" />
+        </div>
+      </div>
     );
   }
 }

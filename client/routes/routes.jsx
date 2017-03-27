@@ -17,16 +17,16 @@ import SignUp from '../containers/SignUp/SignUp.jsx';
 // }
 
 // 为什么不行啊？
-// const AppWrappingRoute = ({ component: Component, ...rest }) => (
-//   <Route { ...rest } render={ props => (<App><Component { ...props } /></App>) }  />
-// );
+const AppWrappingRoute = ({ component: Component, ...rest }) => (
+  <Route { ...rest } render={ props => (<App><Component { ...props } /></App>) } />
+);
 
 export default () => (
   <Container>
-    {/* <AppWrappingRoute exact path='/' component={ Homepage } />
-    <AppWrappingRoute path='/homepage' component={ Homepage } /> */}
-    <Route exact path="/" component={ Homepage } />
-    <Route path="/homepage" component={ Homepage } />
+    <AppWrappingRoute exact path="/" component={ Homepage } />
+    <AppWrappingRoute path="/homepage" component={ Homepage } />
+    {/* <Route exact path="/" component={ Homepage } />
+    <Route path="/homepage" component={ Homepage } /> */}
     <Route path="/login" component={ Login } />
     <Route path="/signup" component={ SignUp } />
   </Container>
