@@ -31,7 +31,39 @@ module.exports = {
     'import/extensions': 0,
     'import/prefer-default-export': 0, // 默认使用export default
     'react/jsx-curly-spacing': 0,
-    'react/require-default-props': 0 // 与react/prop-types冲突，保留react/prop-types验证
+    'react/require-default-props': 0, // 与react/prop-types冲突，保留react/prop-types验证
+    'global-require': 0,
+    'import/no-dynamic-require': 1,
+    'react/prefer-stateless-function': 1,
+    'react/no-unused-prop-types': 1,
+    'react/prop-types': 1,
+    'no-unused-vars': 1,
+    "react/sort-comp": [1, {
+      "order": [
+        "static-methods",
+        "lifecycle",
+        "everything-else",
+        "/^_?on.+$/",
+        "/^_?render.+$/",
+        "render"
+      ],
+      "groups": {
+        "lifecycle": [
+          "displayName",
+          "propTypes",
+          "defaultProps",
+          "state",
+          "constructor",
+          "componentWillMount",
+          "componentDidMount",
+          "componentWillReceiveProps",
+          "shouldComponentUpdate",
+          "componentWillUpdate",
+          "componentDidUpdate",
+          "componentWillUnmount"
+        ]
+      }
+    }]
   },
   'env': {
     'es6': true,
