@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 const config = require('../../config/config');
 
 const pathsUtils = config.utils_paths;
@@ -21,9 +22,9 @@ const baseConfig = {
   },
   module: {
     rules: [
-      { test: /\.jsx?$/, enforce: 'pre', loader: 'eslint-loader' },
+      // { test: /\.jsx?$/, enforce: 'pre', loader: 'eslint-loader' },
       { test: /\.jsx?$/, use: ['react-hot-loader', 'babel-loader'], exclude: /node_modules/ },
-      { test: /\.(png|jpe?g|gif|svg|webp)$/,
+      { test: /\.(png|jpe?g|gif|svg|webp|woff2)$/,
         use: [
           'url-loader?limit=8192&name=img/[name].[hash:8].[ext]'
         ],
@@ -32,6 +33,13 @@ const baseConfig = {
     ]
   },
   plugins: [
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        postcss() {
+          return [autoprefixer({ browsers: ['last 10 versions'] })];
+        }
+      }
+    }),
     new webpack.optimize.CommonsChunkPlugin({
       name: config.compiler_vendor_key,
       filename: '[name].[hash:8].js'

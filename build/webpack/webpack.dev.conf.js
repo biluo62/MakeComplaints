@@ -29,7 +29,7 @@ webpackConfig.module.rules = webpackConfig.module.rules.concat(cssLoaders({
 webpackConfig.plugins = webpackConfig.plugins.concat([
   new webpack.HotModuleReplacementPlugin(),
   new HtmlWebpackPlugin({
-    title: '云汐吐槽网',
+    title: '教育部学历证书电子注册备案表',
     filename: 'index.html',
     template: pathsUtils.client('template.html')
   }),

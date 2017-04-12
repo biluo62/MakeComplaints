@@ -6,6 +6,7 @@ import Container from '../containers/Container/Container.jsx';
 import Homepage from '../containers/Homepage/Homepage.jsx';
 import Login from '../containers/Login/Login.jsx';
 import SignUp from '../containers/SignUp/SignUp.jsx';
+import Certificate from '../containers/Certificate/Certificate.jsx';
 
 // const checkIsLogin = (props, pathname = '/homepage') => {
 //   const isLogin = true;
@@ -25,6 +26,7 @@ export default () => (
   <Container>
     <AppWrappingRoute exact path="/" component={ Homepage } />
     <AppWrappingRoute path="/homepage" component={ Homepage } />
+    <AppWrappingRoute path="/cert" component={ Certificate } />
     {/* <Route exact path="/" component={ Homepage } />
     <Route path="/homepage" component={ Homepage } /> */}
     <Route path="/login" component={ Login } />

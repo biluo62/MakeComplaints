@@ -19,7 +19,7 @@ class Login extends Component {
     const { i18n } = this.props;
     return (
       <div className="login-main">
-        { i18n('login', 'content').s }
+        { i18n('login', 'content').s + '123sadsa' }
         <div className="login-mask">
           <div className="background-mask" />
         </div>

@@ -1,9 +1,9 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = function (options) {
-  function generateLoaders (test, loaders) {
-    var sourceLoaders = loaders.map(function (loader) {
-      var extraParamChar;
+  function generateLoaders(test, loaders) {
+    const sourceLoaders = loaders.map(function (loader) {
+      let extraParamChar;
 
       if (/\?/.test(loader)) {
         loader = loader.replace(/\?/, '-loader?');
@@ -13,10 +13,10 @@ module.exports = function (options) {
         extraParamChar = '?';
       }
 
-      return loader + (options.sourceMap ? extraParamChar + 'sourceMap' : '');
+      return loader + (options.sourceMap ? `${extraParamChar}sourceMap` : '');
     });
 
-    sourceLoaders.push('autoprefixer-loader?browsers=last 10 version');
+    sourceLoaders.push('postcss-loader');
 
     if (options.extract) {
       const extractOptions = {
@@ -37,4 +37,4 @@ module.exports = function (options) {
     generateLoaders(/\.stylus$/, ['css', 'stylus']),
     generateLoaders(/\.styl$/, ['css', 'stylus'])
   ];
-}
+};
