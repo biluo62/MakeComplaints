@@ -86,13 +86,13 @@ class Certificate extends Component {
         <header className="certificate-header">
           <div className="switch-langauge">
             <label className="switch-langauge-label">报告语种：</label>
-            <span className="langauge-item">中文</span>
+            <span className="langauge-item" onClick={ () => window.location.reload() }>中文</span>
             <a className="modal-trigger" onClick={ this.onTriggerSwitch }>
               <span className="new-lever">
                 <span className="lever-cilcle"></span>
               </span>
             </a>
-            <span className="langauge-item">英文</span>
+            <span className="langauge-item" onClick={ this.onTriggerSwitch }>英文</span>
           </div>
           <a className="btn-print" href="http://www.chsi.com.cn/report/xueli/download.do?vcode=811764836712&rid=91787196644925384073491000421032&ln=cn" />
         </header>
