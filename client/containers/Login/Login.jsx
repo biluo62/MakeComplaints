@@ -19,9 +19,19 @@ class Login extends Component {
     const { i18n } = this.props;
     return (
       <div className="login-main">
-        { i18n('login', 'content').s + '123sadsa' }
         <div className="login-mask">
           <div className="background-mask" />
+        </div>
+        <div className="center-box-container">
+          <section className="box-header signup">
+            <header className="signup-header">{ i18n('signup', 'title') }</header>
+            <div className="signup-body">
+              <div className="signup-avatar" />
+              <div className="signup-link">{ i18n('signup', 'newAccount') }</div>
+              <div className="signup-tip">{ i18n('signup', 'tip') }{ i18n('signup', 'userAgreement') }</div>
+            </div>
+          </section>
+          <section className="box-body signin" />
         </div>
       </div>
     );

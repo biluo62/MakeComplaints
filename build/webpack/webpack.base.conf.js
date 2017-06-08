@@ -37,6 +37,10 @@ const baseConfig = {
       options: {
         postcss() {
           return [autoprefixer({ browsers: ['last 10 versions'] })];
+        },
+        eslint: {
+          formatter: require('eslint-friendly-formatter'),
+          fix: true
         }
       }
     }),
