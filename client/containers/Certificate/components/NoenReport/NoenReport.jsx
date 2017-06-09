@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import classNames from 'classnames'
+import classNames from 'classnames';
 
 import './NoenReport.scss';
 

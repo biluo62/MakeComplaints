@@ -53,15 +53,15 @@ const client = (function (w) {
     engine.ver = browser.ver = w.opera.version();
     engine.opera = browser.opera = parseFloat(engine.ver);
   } else if (/AppleWebKit\/(\S+)/.test(ua)) {
-    engine.ver = RegExp['$1'];
+    engine.ver = RegExp.$1;
     engine.webkit = parseFloat(engine.ver);
 
     // 判断是Chrome还是Safari
     if (/Chrome\/(\S+)/.test(ua)) {
-      browser.ver = RegExp['$1'];
+      browser.ver = RegExp.$1;
       browser.chrome = parseFloat(browser.ver);
     } else if (/Version\/(\S+)/.test(ua)) {
-      browser.ver = RegExp['$1'];
+      browser.ver = RegExp.$1;
       browser.safari = parseFloat(browser.ver);
     } else {
       // 近似的确认版本号
@@ -79,19 +79,19 @@ const client = (function (w) {
       browser.safari = browser.ver = safariVersion;
     }
   } else if (/KHTML\/(\S+)/.test(ua)) {
-    engine.ver = browser.ver = RegExp['$1'];
+    engine.ver = browser.ver = RegExp.$1;
     engine.khtml = browser.konq = parseFloat(engine.ver);
   } else if (/rv:([^)]+)\) Gecko\/\d{8}/.test(ua)) {
-    engine.ver = RegExp['$1'];
+    engine.ver = RegExp.$1;
     engine.gecko = parseFloat(engine.ver);
 
     // 确认是否为Firefox
     if (/Firefox\/(\S+)/.test(ua)) {
-      browser.ver = RegExp['$1'];
+      browser.ver = RegExp.$1;
       browser.firefox = parseFloat(browser.ver);
     }
   } else if (/MSIE ([^;]+)/.test(ua)) {
-    engine.ver = browser.ver = RegExp['$1'];
+    engine.ver = browser.ver = RegExp.$1;
     engine.ie = browser.ie = parseFloat(engine.ver);
   }
 
@@ -108,8 +108,8 @@ const client = (function (w) {
   // 检测 Windows 操作系统
   if (system.win) {
     if (/Win(?:dows )?([^do]{2})\s?(\d+\.\d+)?/.test(ua)) {
-      if (RegExp['$1'] === 'NT') {
-        switch (RegExp['$2']) {
+      if (RegExp.$1 === 'NT') {
+        switch (RegExp.$2) {
           case '5.0':
             system.win = '2000';
             break;
@@ -125,10 +125,10 @@ const client = (function (w) {
           default:
             system.win = 'NT';
         }
-      } else if (RegExp['$1'] === '9x') {
+      } else if (RegExp.$1 === '9x') {
         system.win = 'ME';
       } else {
-        system.win = RegExp['$1'];
+        system.win = RegExp.$1;
       }
     }
   }
@@ -144,7 +144,7 @@ const client = (function (w) {
   } else if (system.win === 'Ph') {
     if (/Windows Phone OS (\d+.\d+)/.test(ua)) {
       system.win = 'Phone';
-      system.winMobile = parseFloat(RegExp['$1']);
+      system.winMobile = parseFloat(RegExp.$1);
     }
   }
 
@@ -171,6 +171,6 @@ const client = (function (w) {
     browser,
     system
   };
-})(window);
+}(window));
 
 export default client;

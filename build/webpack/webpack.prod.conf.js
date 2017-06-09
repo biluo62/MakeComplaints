@@ -1,11 +1,14 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const UglifyJsParallelPlugin = require('webpack-parallel-uglify-plugin');
+const os = require('os');
 const webpackConfig = require('./webpack.base.conf');
 const config = require('../../config/config');
 const cssLoaders = require('../loaders/css-loaders');
 
 const pathsUtils = config.utils_paths;
-const APP_ENTRY = pathsUtils.client('index.jsx');
+// const APP_ENTRY = pathsUtils.client('index.jsx');
 
 webpackConfig.devtool = false;
 
@@ -30,6 +33,24 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
       removeAttributeQuotes: true,
       removeComments: true,
       removeEmptyAttributes: true
+    }
+  }),
+  // gzip uglify
+  new CompressionWebpackPlugin({
+    asset: '[path].gz[query]',
+    algorithm: 'gzip',
+    test: /\.(js|html)$/,
+    threshold: 10240,
+    minRatio: 0.8
+  }),
+  // 增强 uglifyPlugin
+  new UglifyJsParallelPlugin({
+    workers: os.cpus().length,
+    mangle: true,
+    compressor: {
+      warnings: false,
+      drop_console: true,
+      drop_debugger: true
     }
   })
 ]);

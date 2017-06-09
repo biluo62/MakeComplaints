@@ -89,7 +89,7 @@ class Certificate extends Component {
             <span className="langauge-item" onClick={ () => window.location.reload() }>中文</span>
             <a className="modal-trigger" onClick={ this.onTriggerSwitch }>
               <span className="new-lever">
-                <span className="lever-cilcle"></span>
+                <span className="lever-cilcle" />
               </span>
             </a>
             <span className="langauge-item" onClick={ this.onTriggerSwitch }>英文</span>
@@ -104,7 +104,7 @@ class Certificate extends Component {
           </div>
 
           { collections.map((collection, index) => (
-              <CollectionCard key={`collectioncard-${index}`} collection={ collection } />)) }
+            <CollectionCard key={`collectioncard-${index}`} collection={ collection } />)) }
         </div>
 
         { isOpenNoenReport && <NoenReport isOpen={ isOpenNoenReport } onHide={ this.onTriggerSwitch } /> }
