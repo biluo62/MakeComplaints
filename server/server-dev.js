@@ -1,6 +1,14 @@
 // Provide custom regenerator runtime and core-js
 require('babel-polyfill');
 const AV = require('leanengine');
+const path = require('path');
+const webpack = require('webpack');
+const express = require('express');
+
+const app = require('./app');
+const webpackConfig = require('../build/webpack/webpack.dev.conf');
+const config = require('../config/config');
+const exec = require('child_process').exec;
 
 AV.init({
   appId: process.env.LEANCLOUD_APP_ID,
@@ -11,13 +19,7 @@ AV.init({
 // 如果不希望使用 masterKey 权限，可以将下面一行删除
 AV.Cloud.useMasterKey();
 
-const webpack = require('webpack');
-
-const app = require('./app');
-const config = require('../build/webpack/webpack.dev.conf');
-const exec = require('child_process').exec;
-
-const compiler = webpack(config);
+const compiler = webpack(webpackConfig);
 
 // 移动pre-commit到.git/hooks目录下
 exec('cp ./pre-commit ./.git/hooks/pre-commit', (err) => {
@@ -28,27 +30,44 @@ exec('cp ./pre-commit ./.git/hooks/pre-commit', (err) => {
   }
 });
 
-// handle fallback for HTML5 history API
-app.use(require('connect-history-api-fallback')());
-
-// serve webpack bundle output
-app.use(require('webpack-dev-middleware')(compiler, {
+const devMiddleware = require('webpack-dev-middleware')(compiler, {
   noInfo: false,
-  publicPath: config.output.publicPath,
+  publicPath: webpackConfig.output.publicPath,
   stats: {
     colors: true,
     chunks: false
   }
-}));
+});
+
+const hotMiddleware = require('webpack-hot-middleware')(compiler);
+// force page reload when html-webpack-plugin template changes
+compiler.plugin('compilation', (compilation) => {
+  compilation.plugin('html-webpack-plugin-after-emit', (data, cb) => {
+    hotMiddleware.publish({ action: 'reload' });
+    cb();
+  });
+});
+
+// handle fallback for HTML5 history API
+app.use(require('connect-history-api-fallback')());
+
+// serve webpack bundle output
+app.use(devMiddleware);
 
 // enable hot-reload and state-preserving
 // compilation error display
-app.use(require('webpack-hot-middleware')(compiler));
+app.use(hotMiddleware);
+
 
 // error  handlers
 const errorHandler = require('./error-handler');
 
 app.use(errorHandler(app));
+
+// serve pure static assets
+const staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory);
+app.use(staticPath, express.static(path.resolve(__dirname, config.dev.staticPath)));
+
 
 // 端口一定要从环境变量 `LEANCLOUD_APP_PORT` 中获取。
 // LeanEngine 运行时会分配端口并赋值到该变量。

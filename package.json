@@ -6,10 +6,13 @@
   "main": "server/server.dev.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production && node server/server-prod.js",
-    "dev": "cross-env NODE_ENV=development && node server/server-dev.js",
-    "build": "cross-env NODE_ENV=production && node ./server/server-prod.js"
+    "dev": "npm run dll-dev && cross-env NODE_ENV=development && node server/server-dev.js",
+    "build": "npm run dll-build && cross-env NODE_ENV=production && node ./server/server-prod.js",
+    "dll-dev": "NODE_ENV=development webpack --config build/webpack/webpack.dll.conf.js --progress",
+    "dll-build": "NODE_ENV=production webpack --config build/webpack/webpack.dll.conf.js --progress"
   },
   "dependencies": {
+    "add-asset-html-webpack-plugin": "2.0.1",
     "autoprefixer": "6.7.7",
     "babel-core": "6.24.0",
     "babel-eslint": "7.2.0",
@@ -77,9 +80,11 @@
     "webpack": "2.2.1",
     "webpack-dev-middleware": "1.10.1",
     "webpack-hot-middleware": "2.17.1",
-    "webpack-parallel-uglify-plugin": "0.4.2"
+    "webpack-md5-hash": "0.0.5",
+    "webpack-parallel-uglify-plugin": "0.4.2",
+    "webpack-visualizer-plugin": "0.1.11"
   },
   "engines": {
-    "node": "6.x"
+    "node": "6.2"
   }
 }

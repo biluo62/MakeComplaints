@@ -27,17 +27,24 @@ module.exports = {
     'no-restricted-syntax': 0, // 允许使用for in
     'react/no-did-mount-set-state': 0,
     'react/jsx-no-bind': 0,
-
+    'dot-notation': 1,
+    'no-multi-assign': 1,
+    'wrap-iife': 1,
+    'no-useless-escape': 1,
+    'no-self-compare': 1,
+    'no-plusplus': 1,
+    'import/first': 1,
     'import/extensions': 0,
     'import/prefer-default-export': 0, // 默认使用export default
+    'import/no-dynamic-require': 1,
+    'global-require': 0,
+    'no-unused-vars': 1,
+
     'react/jsx-curly-spacing': 0,
     'react/require-default-props': 0, // 与react/prop-types冲突，保留react/prop-types验证
-    'global-require': 0,
-    'import/no-dynamic-require': 1,
     'react/prefer-stateless-function': 1,
     'react/no-unused-prop-types': 1,
     'react/prop-types': 1,
-    'no-unused-vars': 1,
     "react/sort-comp": [1, {
       "order": [
         "static-methods",
@@ -64,6 +71,7 @@ module.exports = {
         ]
       }
     }]
+
   },
   'env': {
     'es6': true,
@@ -80,4 +88,7 @@ module.exports = {
     'jsx': true,
     'experimentalObjectRestSpread': true
   },
+  'exclude': [
+    'client/utils/DeviceUtils.js'
+  ]
 };

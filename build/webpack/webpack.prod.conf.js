@@ -1,8 +1,12 @@
+const os = require('os');
+const path = require('path');
+const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const UglifyJsParallelPlugin = require('webpack-parallel-uglify-plugin');
-const os = require('os');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+const WebpackMD5Hash = require('webpack-md5-hash');
 const webpackConfig = require('./webpack.base.conf');
 const config = require('../../config/config');
 const cssLoaders = require('../loaders/css-loaders');
@@ -20,26 +24,16 @@ webpackConfig.module.rules = webpackConfig.module.rules.concat(cssLoaders({
 
 webpackConfig.plugins = webpackConfig.plugins ? webpackConfig.plugins : [];
 webpackConfig.plugins = webpackConfig.plugins.concat([
-  new CleanWebpackPlugin([config.dir_dist], {
-    root: pathsUtils.base(),
+  new WebpackMD5Hash(),
+  new CleanWebpackPlugin([config.dir_client], {
+    root: pathsUtils.dist(),
     verbose: true
-  }),
-  new HtmlWebpackPlugin({
-    title: '教育部学历证书电子注册备案表',
-    filename: 'index.html',
-    template: pathsUtils.client('template.html'),
-    minify: {
-      collapseWhitespace: true,
-      removeAttributeQuotes: true,
-      removeComments: true,
-      removeEmptyAttributes: true
-    }
   }),
   // gzip uglify
   new CompressionWebpackPlugin({
     asset: '[path].gz[query]',
     algorithm: 'gzip',
-    test: /\.(js|html)$/,
+    test: /\.(js|html|css)$/,
     threshold: 10240,
     minRatio: 0.8
   }),
@@ -52,7 +46,31 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
       drop_console: true,
       drop_debugger: true
     }
-  })
+  }),
+  // webpack dllplugin
+  new webpack.DllReferencePlugin({
+    context: __dirname,
+    manifest: require(config.build.dll.manifest),
+  }),
+  new HtmlWebpackPlugin({
+    title: '云汐吐槽网',
+    filename: 'index.html',
+    template: pathsUtils.client('template.html'),
+    minify: {
+      collapseWhitespace: true,
+      removeAttributeQuotes: true,
+      removeComments: true,
+      removeEmptyAttributes: true
+    }
+  }),
+  new AddAssetHtmlPlugin([
+    {
+      filepath: path.resolve(__dirname, config.build.dll.fileName),
+      // outputPath: path.join('/'),
+      // publicPath: path.join('/'),
+      includeSourcemap: true
+    }
+  ])
 ]);
 
 module.exports = webpackConfig;

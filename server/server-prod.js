@@ -1,8 +1,17 @@
-'use strict';
 // Provide custom regenerator runtime and core-js
-require('babel-polyfill')
-
+require('babel-polyfill');
 const AV = require('leanengine');
+const fs = require('fs');
+const path = require('path');
+const webpack = require('webpack');
+const express = require('express');
+const ejs = require('ejs');
+
+const app = require('./app');
+// const clientRoute = require('./middlewares/clientRoute');
+
+// use webpack to build and package client codes
+const config = require('../build/webpack/webpack.prod.conf');
 
 AV.init({
   appId: process.env.LEANCLOUD_APP_ID,
@@ -12,17 +21,6 @@ AV.init({
 
 // 如果不希望使用 masterKey 权限，可以将下面一行删除
 AV.Cloud.useMasterKey();
-
-const app = require('./app');
-const ejs = require('ejs');
-var express = require('express');
-// const clientRoute = require('./middlewares/clientRoute');
-
-// use webpack to build and package client codes
-const webpack = require('webpack');
-const fs = require('fs');
-const path = require('path');
-const config = require('../build/webpack/webpack.prod.conf');
 
 const createServer = function () {
   // create server
@@ -34,7 +32,7 @@ const createServer = function () {
 
   app.use(express.static(clientPath));
 
-  app.get('*', function(req, res) {
+  app.get('*', (req, res) => {
     res.render('index');
   });
 
@@ -44,20 +42,20 @@ const createServer = function () {
 
   // 端口一定要从环境变量 `LEANCLOUD_APP_PORT` 中获取。
   // LeanEngine 运行时会分配端口并赋值到该变量。
-  const PORT = parseInt(process.env.LEANCLOUD_APP_PORT || process.env.PORT || 3000);
+  const PORT = parseInt(process.env.LEANCLOUD_APP_PORT || process.env.PORT || 3000, 10);
 
-  app.listen(PORT, function (err) {
+  app.listen(PORT, (err) => {
     console.log('Node app is running on port:', PORT);
 
     // 注册全局未捕获异常处理器
-    process.on('uncaughtException', function(err) {
-      console.error("Caught exception:", err.stack);
+    process.on('uncaughtException', (e) => {
+      console.error('Caught exception:', e.stack);
     });
-    process.on('unhandledRejection', function(reason, p) {
-      console.error("Unhandled Rejection at: Promise ", p, " reason: ", reason.stack);
+    process.on('unhandledRejection', (reason, p) => {
+      console.error('Unhandled Rejection at: Promise ', p, ' reason: ', reason.stack);
     });
   });
-}
+};
 
 const webpackedHandler = function (error, stats) {
   if (error) {
@@ -73,11 +71,11 @@ const webpackedHandler = function (error, stats) {
   }
 
   // save build info to file
-  fs.writeFile(path.resolve(config.output.path, '../', 'webpack.build.log'), stats.toString({color: true}));
+  fs.writeFile(path.resolve(config.output.path, '../logs/', 'webpack.build.log'), stats.toString({ color: true }));
 
   // create server to listen request
   createServer();
-}
+};
 
 webpack(config, webpackedHandler);
 
